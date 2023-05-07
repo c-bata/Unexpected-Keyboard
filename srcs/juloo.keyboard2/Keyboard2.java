@@ -90,6 +90,16 @@ public class Keyboard2 extends InputMethodService
     _debug_logs = getResources().getBoolean(R.bool.debug_logs);
   }
 
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_CAPS_LOCK) {
+      Log.d(TAG, "onKeyDown: CapsLock key is pressed!");
+      KeyEvent newEvent = new KeyEvent(event.getDownTime(), event.getEventTime(), event.getAction(), KeyEvent.KEYCODE_CTRL_LEFT, event.getRepeatCount(), event.getMetaState());
+      return super.onKeyDown(KeyEvent.KEYCODE_CTRL_LEFT, newEvent);
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+
   private List<InputMethodSubtype> getEnabledSubtypes(InputMethodManager imm)
   {
     String pkg = getPackageName();
